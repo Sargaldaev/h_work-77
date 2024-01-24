@@ -16,3 +16,5 @@ const imageStorage = multer.diskStorage({
     cb(null, 'images/' + randomUUID() + extension);
   }
 });
+
+export const imagesUpload = multer({storage: imageStorage});

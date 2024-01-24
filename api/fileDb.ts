@@ -1,9 +1,10 @@
 import {promises as fs} from 'fs';
 import {randomUUID} from 'crypto';
+import {IMessageCreate, IMessages} from './types';
 
 
 const filename = './db.json';
-let data: any[] = [];
+let data: IMessages[] = [];
 
 const fileDb = {
 
@@ -20,13 +21,16 @@ const fileDb = {
     return data;
   },
 
-  async addItem(item: any) {
+  async addItem(item: IMessageCreate) {
 
+    if (!item.author) {
+      item.author = 'Anonymous';
+    }
     const message = {
       ...item,
       id: randomUUID(),
-      datetime: new Date().toISOString()
     };
+
     data.push(message);
 
     await this.save();
