@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
 import { Button, Grid, TextField } from '@mui/material';
 
 interface Props {
@@ -6,6 +6,7 @@ interface Props {
   name: string;
   label: string;
 }
+
 const InputFile: React.FC<Props> = ({onChange, name, label}) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [filename, setFilename] = useState('');
@@ -35,7 +36,7 @@ const InputFile: React.FC<Props> = ({onChange, name, label}) => {
         ref={inputRef}
       />
       <Grid container direction="row" spacing={2} alignItems="center">
-        <Grid item xs>
+        <Grid item>
           <TextField
             disabled
             label={label}
@@ -44,10 +45,16 @@ const InputFile: React.FC<Props> = ({onChange, name, label}) => {
           />
         </Grid>
         <Grid item>
-          <Button variant="contained" onClick={activateInput}>Browse</Button>
+          <Button
+            variant="contained"
+            onClick={activateInput}
+          >
+            Browse
+          </Button>
         </Grid>
       </Grid>
     </>
+
   );
 };
 

@@ -3,7 +3,8 @@ import InputFile from '../../Components/InputFile/InputFile';
 import { IMessageCreate } from '../../types';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
-import { Box, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
+import { fetchData, postData } from '../../store/messageThunk';
 
 const Form = () => {
 
@@ -29,37 +30,23 @@ const Form = () => {
     }
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    await dispatch(postData(state));
+    await dispatch(fetchData());
+    setState({author:'',message:'',image:null})
   };
 
   return (
-    // <Box
-    //   component={'form'}
-    // >
-    //   <TextField
-    //     name={'author'}
-    //     onChange={onChange}
-    //     value={state.author}
-    //   />
-    //
-    //   <TextField
-    //     name={'message'}
-    //     onChange={onChange}
-    //     value={state.message}
-    //   />
-    //
-    //   <InputFile onChange={onChangeFiles} name={'image'} label={'image'}/>
-    // </Box>
-
     <Box
       component="form"
       onSubmit={onSubmit}
       display="flex"
-      sx={{'& > :not(style)': {m: 1}, background: 'rgb(180, 180, 180)', borderRadius: '20px', marginTop: '10px'}}
+      sx={{'& > :not(style)': {m: 1}}}
 
     >
-      <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
+      <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
         <TextField
           id="input-with-sx"
           label="Author"
@@ -68,19 +55,27 @@ const Form = () => {
           onChange={onChange}
           value={state.author}
         />
+
+        <TextField
+          id="filled-multiline-static"
+          label="Message"
+          multiline
+          rows={2}
+          variant="filled"
+          name="message"
+          onChange={onChange}
+          value={state.message}
+        />
+
+        <InputFile onChange={onChangeFiles} name={'image'} label={'image'}/>
+
+        <Button
+          type={'submit'}
+          variant={'contained'}
+        >
+          Send
+        </Button>
       </Box>
-
-      <TextField
-        id="filled-multiline-static"
-        label="Message"
-        multiline
-        rows={2}
-        variant="filled"
-        name="message"
-        onChange={onChange}
-        value={state.message}
-      />
-
     </Box>
   );
 };

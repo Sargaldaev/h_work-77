@@ -1,12 +1,11 @@
 import React from 'react';
-import Form from './features/Form/Form';
+import Main from './features/Main/Main';
 
 
 function App() {
   return (
     <>
-
-      <Form/>
+<Main/>
     </>
   );
 }
