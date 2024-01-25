@@ -23,6 +23,10 @@ messagesRouter.post('/', imagesUpload.single('image'), async (req, res) => {
       image: req.file ? req.file.filename : null
     };
 
+    if (!message.message) {
+      res.status(400).send({'error': 'Message required'});
+    }
+
     await fileDb.addItem(message);
     res.send(message);
   } catch (error) {

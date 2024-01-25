@@ -5,7 +5,7 @@ import Main from './features/Main/Main';
 function App() {
   return (
     <>
-<Main/>
+      <Main/>
     </>
   );
 }
